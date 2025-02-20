@@ -1,16 +1,17 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import DashBoard from "./components/dashboard/DashBoard";
+import DashBoard from "./components/navigate/DashBoard";
 import AccountTable from "./components/account/AccountTable";
 import ListAcc from "./components/account/control/ListAcc";
 import Authorization from "./components/account/control/Authorization";
-import HomePage from "./components/Home/HomePage";
+import HomePage from "./components/home/HomePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<DashBoard />}>
+          <Route index element ={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="users" element={<AccountTable />}> 
             <Route index element={<Navigate to ="/users/list" replace/>}/>

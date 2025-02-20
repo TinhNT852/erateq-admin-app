@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {  CarryOutOutlined, CodeOutlined, PlusCircleOutlined, ScanOutlined, UnlockOutlined, UserOutlined } from "@ant-design/icons";
 import "./Authorization.css";
+import { NavLink } from "react-router-dom";
 
 const rolesData = [
   {
@@ -32,7 +33,7 @@ const rolesData = [
   }
 ];
 
-const roles = [
+const rolesMenu = [
   {name: "Accountance"},
   {name: "Quản trị viên"},
   {name: "Food and Beverage"},
@@ -54,11 +55,20 @@ export default function Authorization() {
     <div className="container-roles">
       <aside className="sidebar-roles">
         <button className="add-button"><PlusCircleOutlined /> Thêm bộ phận</button>
-        <ul>
-          {["Accountance", "Quản trị viên", "Food and Beverage", "Front Office", "FOM", "Reservation"].map((item, index) => (
-            <li key={index} className="sidebar-item">{item}</li>
+        <div className="">
+          {rolesMenu.map((item, index) => (
+            <NavLink
+              key={index}
+              to={item.path}
+              className={({ isActive }) =>
+                isActive ? "activeLink sidebar-link" : "sidebar-link"
+              }>
+              <button className="sidebar-item">
+                {item.name}
+              </button>
+            </NavLink>
           ))}
-        </ul>
+        </div>
       </aside>
 
         <div className="permission-container">

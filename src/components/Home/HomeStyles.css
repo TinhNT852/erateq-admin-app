@@ -25,7 +25,7 @@
 }
 
 .status-card {
-  height: 64px;
+  height: auto;
   flex: 1;
   background-color: #e8f1ff;
   border-radius: 8px;
