@@ -4,8 +4,8 @@ import AccountTable from "./components/account/AccountTable";
 import Authorization from "./components/account/control/Authorization";
 import HomePage from "./components/home/HomePage";
 import ListAcc from "./components/account/control/ListAcc";
-import DashBoard from "./components/dashboard/DashBoard";
-import ProductsPage from "./components/Product/ProductPage";
+import DashBoard from "./components/navigate/DashBoard";
+import ProductsPage from "./components/product/ProductPage";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="users" element={<AccountTable />}>
             <Route index element={<Navigate to ="/users/list" replace/>}/>
             <Route path="/users/list" element={<ListAcc />} />
-            <Route path="/users/author" element={<Authorization S/>}/>
+            <Route path="/users/author" element={<Authorization />}/>
           </Route>
 
           <Route path="/products" element={<ProductsPage />} />
