@@ -1,7 +1,7 @@
 import { Button, Pagination, Table, Tag } from 'antd';
 import { DeleteOutlined, EditOutlined, LockFilled } from "@ant-design/icons";
 import React, { useState } from 'react';
-import "./../AccountTable.css";
+import "../AccountTable.css";
 
 const ListAcc = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
