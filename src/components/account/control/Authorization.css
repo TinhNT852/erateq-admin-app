@@ -29,11 +29,12 @@
 }
 
 .sidebar-item {
-  padding: 10px;
+  padding: 8px;
   width: 100%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-align: start;
   transition: background 0.3s;
 }
 

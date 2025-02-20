@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  CarryOutOutlined, CodeOutlined, PlusCircleOutlined, ScanOutlined, UnlockOutlined, UserOutlined } from "@ant-design/icons";
+import {  CarryOutOutlined, CodeOutlined, PlusCircleOutlined, ScanOutlined, SketchOutlined, UnlockOutlined, UserOutlined } from "@ant-design/icons";
 import "./Authorization.css";
 import { NavLink } from "react-router-dom";
 
@@ -34,12 +34,12 @@ const rolesData = [
 ];
 
 const rolesMenu = [
-  {name: "Accountance"},
-  {name: "Quản trị viên"},
-  {name: "Food and Beverage"},
-  {name: "Front Office"},
-  {name: "FOM"},
-  {name: "Reservation"}
+  {name: "Accountance", icon: <SketchOutlined />},
+  {name: "Quản trị viên", icon: <SketchOutlined />},
+  {name: "Food and Beverage", icon: <SketchOutlined />},
+  {name: "Front Office", icon: <SketchOutlined />},
+  {name: "FOM", icon: <SketchOutlined />},
+  {name: "Reservation", icon: <SketchOutlined />}
 ]
 
 export default function Authorization() {
@@ -55,7 +55,7 @@ export default function Authorization() {
     <div className="container-roles">
       <aside className="sidebar-roles">
         <button className="add-button"><PlusCircleOutlined /> Thêm bộ phận</button>
-        <div className="">
+        <div className="sider-roles-pick">
           {rolesMenu.map((item, index) => (
             <NavLink
               key={index}
@@ -64,6 +64,7 @@ export default function Authorization() {
                 isActive ? "activeLink sidebar-link" : "sidebar-link"
               }>
               <button className="sidebar-item">
+                {item.icon}
                 {item.name}
               </button>
             </NavLink>
