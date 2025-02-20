@@ -14,7 +14,11 @@ function App() {
         <Route path="/" element={<DashBoard />}>
           <Route index element ={<HomePage />} />
 
+<<<<<<< HEAD
 {/*hahahahaha */}
+=======
+{/*Test push*/}
+>>>>>>> 95bd5164c06c23d4f127e6352463c0c7eaf19642
           <Route path="/home" element={<HomePage />} />
 
           <Route path="users" element={<AccountTable />}>
