@@ -94,7 +94,7 @@ const CustomerTable = () => {
             <Button type="primary" icon={<PlusOutlined />} className="add-customer-btn" onClick={() => setIsOpen(true)}>
                 Thêm khách hàng
             </Button>
-            {isOpen && <ModalForm closeModal={() => setIsOpen(false)} />}
+            {isOpen && <ModalForm visible={isOpen} onClose={() => setIsOpen(false)} />}
             </div>
         </div>
         <div className="table-user-list">
