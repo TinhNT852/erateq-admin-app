@@ -69,8 +69,8 @@ const ListAcc = () => {
             <h2>Danh sách tài khoản</h2>
             </div>
             <div className="table-button">
-            <button className="header-button"><LockFilled/>Khoá tài khoản</button>
-            <button className="header-button"><DeleteOutlined />Xoá người dùng</button>
+              <button className="header-button"><LockFilled/>Khoá tài khoản</button>
+              <button className="header-button"><DeleteOutlined />Xoá người dùng</button>
             </div>
       </div>
       <div className="table-content">

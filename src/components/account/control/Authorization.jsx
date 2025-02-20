@@ -64,9 +64,7 @@ export default function Authorization() {
                 isActive ? "activeLink sidebar-link" : "sidebar-link"
               }>
               <button className="sidebar-item">
-                <div className="sidebar-item-onbutton">
-                  {item.icon}
-                </div>
+                <div className="sidebar-item-onbutton">{item.icon}</div>
                   {item.name}
               </button>
             </NavLink>

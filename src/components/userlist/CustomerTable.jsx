@@ -3,6 +3,7 @@ import { Table, Tag, Button } from "antd";
 import { PlusOutlined, ProfileOutlined, EllipsisOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css";
 import "./CustomerTable.css";
+import ModalForm from "./form/ModalForm";
 
 const data = [
   {
@@ -28,11 +29,12 @@ const data = [
     country: "Vietnam",
     address: "Regular text column",
     email: "dung1@gmail.com",
-  },
+  }
 ];
 
 const CustomerTable = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const columns = [
     {
@@ -55,7 +57,7 @@ const CustomerTable = () => {
         contracts.length > 0 ? (
           contracts.map((item, index) => (
             <div key={index}>
-              <span>{item.name}</span>
+              <span style={{margin: "5px"}}>{item.name}</span>
               <Tag color={item.status === "Còn hạn" ? "green" : "red"}>{
                 item.status
               }</Tag>
@@ -89,9 +91,10 @@ const CustomerTable = () => {
         <h4>Danh sách khách hàng</h4>
         <div className="header-add-user">
             <Button className="setting-btn"><ProfileOutlined /></Button>
-            <Button type="primary" icon={<PlusOutlined />} className="add-customer-btn">
+            <Button type="primary" icon={<PlusOutlined />} className="add-customer-btn" onClick={() => setIsOpen(true)}>
                 Thêm khách hàng
             </Button>
+            {isOpen && <ModalForm closeModal={() => setIsOpen(false)} />}
             </div>
         </div>
         <div className="table-user-list">

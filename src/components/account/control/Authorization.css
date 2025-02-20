@@ -43,10 +43,6 @@
   margin-right: 10px;
 }
 
-.sidebar-item:hover {
-  background: #E0F7E2;
-  border: #3FA34B;
-}
 
 .main-author {
   flex: 1;
@@ -94,8 +90,15 @@
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
-.header-button.active {
-  background: #16a34a;
+.header-button:hover {
+  background-color: white;
+  color: #FF7468;
+  border: 1px solid #FF7468;
+}
+.header-button-add:hover {
+  background-color: white;
+  color: #22c55e;
+  border: 1px solid #22c55e;
 }
 
 .permission-container {
