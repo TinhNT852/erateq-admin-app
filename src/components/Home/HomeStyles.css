@@ -99,7 +99,7 @@
 .date-filter {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 15px;
 }
 
@@ -112,7 +112,7 @@
 .show-all {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   font-weight: bold;
 }
 
