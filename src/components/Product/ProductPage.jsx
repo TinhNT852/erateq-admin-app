@@ -98,7 +98,6 @@ const ProductPage = () => {
 
   return (
     <div className="product-container">
-      {/* ======== Sidebar bên trái ======== */}
       <aside className="sidebar-product">
         <h2>Ứng dụng</h2>
         <nav>

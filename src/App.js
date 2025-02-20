@@ -6,6 +6,7 @@ import HomePage from "./components/home/HomePage";
 import ListAcc from "./components/account/control/ListAcc";
 import DashBoard from "./components/navigate/DashBoard";
 import ProductsPage from "./components/product/ProductPage";
+import CustomerTable from "./components/userlist/CustomerTable";
 
 function App() {
   return (
@@ -24,8 +25,8 @@ function App() {
 
           <Route path="/products" element={<ProductsPage />} />
           
-          {/* <Route path="customers" element={<CustomersPage />} />
-          <Route path="settings" element={<SettingsPage />} />
+          <Route path="customers" element={<CustomerTable />} />
+          {/* <Route path="settings" element={<SettingsPage />} />
           <Route path="notification" element={<NotificationPage />} /> */}
         </Route>
       </Routes>
