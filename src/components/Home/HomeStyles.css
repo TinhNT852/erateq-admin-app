@@ -1,7 +1,6 @@
 
 .page-container {
   padding: 20px;
-  background-color: #f5f5f5;
   min-height: 100vh;
 }
 
@@ -69,7 +68,6 @@
 
 .status-title {
   font-weight: bold;
-  
 }
 
 .status-value {
@@ -186,10 +184,12 @@
   background-color: #56B66A;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 4px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: filter 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .btn-accept:active {
@@ -204,9 +204,9 @@
   background-color: #FF7468;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 4px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   transition: filter 0.2s ease;
 }
 
@@ -238,6 +238,7 @@
   cursor: pointer;
   border-radius: 5px;
   color: #646464;
+  transition: filter 0.2s ease;
 }
 
 .pagination-buttons button.active {
@@ -246,7 +247,7 @@
 }
 
 .pagination-buttons button:hover {
-  background-color: #f4f4f4;
+  filter: brightness(0.8);
 }
 
 .page-info-container {

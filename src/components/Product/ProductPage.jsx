@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import CustomIcon from "../../assets/icons/Custom.png";
 import DeleteIcon from "../../assets/icons/Delete.png";
 import GreenAddIcon from "../../assets/icons/GreenAdd.png";
+import MoreIcon from "../../assets/icons/More.png";
 import RedDeleteIcon from "../../assets/icons/RedDelete.png";
 import SaveIcon from "../../assets/icons/Save.png";
-
-import CheckIcon from "../../assets/icons/Check.png";
-import MoreIcon from "../../assets/icons/More.png";
 
 import "./ProductStyles.css";
 
@@ -57,7 +55,7 @@ const ProductPage = () => {
     );
   };
 
-  // ========== Phân trang (ví dụ 8 dòng/trang) ==========
+  // ========== Phân trang ==========
   const rowsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = tableData.length;
@@ -67,10 +65,6 @@ const ProductPage = () => {
   const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow);
 
   const totalPages = Math.ceil(totalItems / rowsPerPage);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   // ========== Các hàm xử lý nút ==========
   const handleDeleteSoftware = () => {
@@ -115,12 +109,9 @@ const ProductPage = () => {
           </ul>
         </nav>
       </aside>
-
-      {/* ======== Nội dung chính ======== */}
       <main className="main-content">
         {/* ======== Thông tin sản phẩm ======== */}
         <div className="product-info-container">
-          {/* Header: Tiêu đề + nút hành động */}
           <div className="info-header">
             <h2>Thông tin sản phẩm</h2>
             <div className="info-actions">
@@ -134,8 +125,6 @@ const ProductPage = () => {
               </button>
             </div>
           </div>
-
-          {/* Dòng 1: ID SP & Phiên Bản Hiện Tại */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -160,8 +149,6 @@ const ProductPage = () => {
               />
             </div>
           </div>
-
-          {/* Dòng 2: Tên SP & Tên SP Rút Gọn */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -186,8 +173,6 @@ const ProductPage = () => {
               />
             </div>
           </div>
-
-          {/* Dòng 3: Ghi Chú Sản Phẩm (dùng textarea) */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -247,18 +232,13 @@ const ProductPage = () => {
                       />
                     </td>
                     <td>
-                      {/* Nếu row.checked === true => hiển thị icon check trước tên */}
-                      {row.checked && (
-                        <img src={CheckIcon} alt="check" className="check-icon" />
-                      )}
                       <strong>{row.name}</strong>
                     </td>
                     <td>{row.version}</td>
                     <td>{row.date}</td>
                     <td>{row.user}</td>
                     <td>{row.changeNote}</td>
-                    <td>
-                      {/* Nút/bộ ba chấm, tuỳ bạn muốn hiển thị gì */}
+                    <td id="more">
                       <button className="btn-more">
                         <img src={MoreIcon} alt="More" className="btn-more-icon" />
                       </button>
@@ -278,36 +258,42 @@ const ProductPage = () => {
 
           {/* Phân trang */}
           <div className="pagination">
-            <div className="page-info">
-              <span>
-                {`${indexOfFirstRow + 1} - ${Math.min(
-                  indexOfLastRow,
-                  totalItems
-                )} trong tổng số ${totalItems} mục`}
-              </span>
-            </div>
             <div className="pagination-buttons">
-              <button
-                disabled={currentPage === 1}
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                ❮
-              </button>
-              {[...Array(totalPages)].map((_, index) => (
                 <button
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={currentPage === index + 1 ? "active" : ""}
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage(currentPage - 1)}
                 >
-                  {index + 1}
+                  ❮
                 </button>
-              ))}
-              <button
-                disabled={currentPage === totalPages || totalPages === 0}
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                ❯
-              </button>
+                {[...Array(totalPages)].map((_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => setCurrentPage(index + 1)}
+                    className={currentPage === index + 1 ? "active" : ""}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                <button
+                  disabled={currentPage === totalPages || totalPages === 0}
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                  ❯
+                </button>
+            </div>
+            <div className="page-info-container">
+              <div className="page-info">
+                <span>
+                  {`${indexOfFirstRow + 1} - ${Math.min(indexOfLastRow, tableData.length)} trong tổng số ${tableData.length} mục`}
+                </span>
+              </div>
+              <div className="page-size">
+                <select onChange={(e) => setCurrentPage(1)}>
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                  <option value="32">32</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

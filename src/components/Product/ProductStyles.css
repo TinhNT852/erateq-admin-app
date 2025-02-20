@@ -2,7 +2,6 @@
 .product-container {
   display: flex;
   min-height: 100vh;
-  background-color: #f8f9fa;
 }
 
 /* ========== SIDEBAR ========== */
@@ -126,7 +125,7 @@
 }
 
 .form-group label {
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 5px;
 }
 
@@ -149,10 +148,9 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
-  margin-bottom: 20px; /* nếu muốn cách so với phần dưới */
+  margin-bottom: 20px;
 }
 
-/* Header: Tiêu đề + 2 nút ("Xóa phiên bản", "Thêm phiên bản") */
 .version-list-header {
   display: flex;
   align-items: center;
@@ -181,6 +179,7 @@
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  transition: filter 0.2s ease;
 }
 
 .btn-custom-version {
@@ -193,7 +192,7 @@
 }
 
 .btn-delete-version {
-  border: 1px solid #FF7468;
+  border: 1.5px solid #FF7468;
   color: #FF7468;
 }
 
@@ -203,7 +202,7 @@
 }
 
 .btn-add-version {
-  border: 1px solid #68BC34;
+  border: 1.5px solid #68BC34;
   color: #68BC34;
 }
 
@@ -223,18 +222,21 @@
   height: 20px;
 }
 
-.check-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  vertical-align: middle;
+.btn-more {
+  background: #E9ECEFB2 ;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: filter 0.2s ease;
 }
 
-.btn-more {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+.btn-more:active {
+  filter: brightness(0.8);
+}
+
+.btn-more:hover {
+  background: #c2c4c6b2 ;
 }
 
 .btn-more-icon {
@@ -242,83 +244,58 @@
   height: 20px;
 }
 
-/* Bọc table để có scrollbar ngang */
-.table-container {
-  overflow-x: auto;
-}
-
 /* ========== TABLE ========== */
-.styled-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-.styled-table th,
-.styled-table td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid #ddd;
-  white-space: nowrap;
-}
-
-.styled-table th {
-  background-color: #f4f4f4;
-  font-weight: 600;
-  color: #555;
-}
-
-.styled-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.styled-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-.checkbox-column {
-  width: 40px;
+#more {
   text-align: center;
 }
 
-/* Nút "Chi tiết" */
-.btn-detail {
-  background-color: #6c757d;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-detail:hover {
-  background-color: #5a6268;
-}
-
-/* ========== PHÂN TRANG ========== */
+/* ========== Pagination ========== */
+/* ===== Phân trang ===== */
 .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
+}
+
+.page-info-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .page-info {
+  margin-right: 10px;
   color: #555;
 }
 
-.pagination-buttons button {
-  border: 1px solid #ddd;
-  background-color: #fff;
-  cursor: pointer;
+.page-size select {
   padding: 6px 12px;
-  margin-right: 5px;
+  border: 1px solid #ddd;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination-buttons button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #646464;
+  transition: filter 0.2s ease;
 }
 
 .pagination-buttons button.active {
-  background-color: #f4f4f4;
+  background-color: #68BC34;
+  color: white;
 }
 
 .pagination-buttons button:hover {
-  background-color: #f4f4f4;
+  filter: brightness(0.8);
 }
