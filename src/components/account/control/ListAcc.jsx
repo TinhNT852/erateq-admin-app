@@ -7,6 +7,8 @@ const ListAcc = () => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 8;
+    const indexOfLastRow = currentPage * pageSize;
+    const indexOfFirstRow = indexOfLastRow - pageSize;
     
     const data = [
       { key: "1", username: "admin1", fullName: "Nguyễn Văn A", phone: "0123456789", dob: "01/01/1990", status: "Hoạt động" },
@@ -67,8 +69,8 @@ const ListAcc = () => {
             <h2>Danh sách tài khoản</h2>
             </div>
             <div className="table-button">
-            <button className="header-button"><LockFilled/>Khoá tài khoản</button>
-            <button className="header-button"><DeleteOutlined />Xoá người dùng</button>
+              <button className="header-button"><LockFilled/>Khoá tài khoản</button>
+              <button className="header-button"><DeleteOutlined />Xoá người dùng</button>
             </div>
       </div>
       <div className="table-content">
@@ -79,6 +81,7 @@ const ListAcc = () => {
           dataSource={data.slice((currentPage - 1) * pageSize, currentPage * pageSize)}
           pagination={false}
         />
+        <div className="pagination-setting">
         <Pagination
           defaultCurrent={1}
           current={currentPage}
@@ -86,6 +89,20 @@ const ListAcc = () => {
           onChange={handlePageChange}
           style={{marginTop: '16px', textAlign: 'right'}}
          />
+            <div className="page-info">
+              <span>{`${indexOfFirstRow + 1} - ${Math.min(
+                indexOfLastRow,
+                data.length
+              )} trong tổng số ${data.length} mục`}</span>
+            </div>
+            <div className="page-size">
+              <select onChange={(e) => setCurrentPage(1)}>
+                <option value="8">8</option>
+                <option value="16">16</option>
+                <option value="32">32</option>
+              </select>
+            </div>
+          </div>
       </div>
     </div>
     );
