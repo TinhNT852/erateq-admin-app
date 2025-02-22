@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import CustomIcon from "../../assets/icons/Custom.png";
 import DeleteIcon from "../../assets/icons/Delete.png";
+import FolderIcon from "../../assets/icons/Folder.png";
 import GreenAddIcon from "../../assets/icons/GreenAdd.png";
 import MoreIcon from "../../assets/icons/More.png";
 import RedDeleteIcon from "../../assets/icons/RedDelete.png";
 import SaveIcon from "../../assets/icons/Save.png";
+import SearchIcon from "../../assets/icons/Search.png";
+import AddIcon from "../../assets/icons/WhiteAdd.png";
 
 import "./ProductStyles.css";
 
@@ -15,7 +18,18 @@ const ProductPage = () => {
   const [productName, setProductName] = useState("");
   const [shortName, setShortName] = useState("");
   const [productNote, setProductNote] = useState("");
-
+  // ========== State cho danh sách phiên bản (bảng) ==========
+  const apps = [
+    { name: "ERA ACC", version: "1.0.2" },
+    { name: "ERA FIX ASSETS", version: "1.0.2" },
+    { name: "ERA PMS", version: "1.0.2" },
+    { name: "ERA F&B", version: "1.5.1" },
+    { name: "ERA IPTV", version: "1.0.0" },
+    { name: "ERA CRM", version: "1.0.0" },
+    { name: "ERA SYSTEM", version: "1.0.0" },
+    { name: "ERA INVENTORY", version: "1.0.0" },
+    { name: "ERA PURCHASING", version: "1.1.0" },
+  ];
   // ========== State cho danh sách phiên bản (bảng) ==========
   const [tableData, setTableData] = useState([
     {
@@ -93,22 +107,34 @@ const ProductPage = () => {
   return (
     <div className="product-container">
       {/* ======== Sidebar bên trái ======== */}
-      <aside className="sidebar-product">
-        <h2>Ứng dụng</h2>
-        <nav>
-          <ul>
-            <li>ERA ACC</li>
-            <li>ERA HR</li>
-            <li>ERA FIX ASSETS</li>
-            <li>ERA FAB</li>
-            <li>ERA FBIV</li>
-            <li>ERA FIV</li>
-            <li>ERA SYSTEM</li>
-            <li>ERA INVENTORY</li>
-            <li>ERA PURCHASING</li>
-          </ul>
-        </nav>
-      </aside>
+      <aside className="app-sidebar">
+      <h2>Ứng dụng</h2>
+
+      {/* Thanh tìm kiếm */}
+      <div className="search-box">
+        <img src={SearchIcon} alt="Search" className="search-icon" />
+        <input type="text" placeholder="Tìm kiếm" />
+      </div>
+
+      {/* Nút Thêm ứng dụng */}
+      <button className="btn-add-app">
+        <img src={AddIcon} alt="Add" className="btn-icon" />
+        Thêm ứng dụng
+      </button>
+      
+      {/* Danh sách ứng dụng */}
+      <ul className="app-list">
+        {apps.map((app) => (
+          <li key={app.name}>
+            <img src={FolderIcon} alt="Folder" className="folder-icon" />
+            <div className="app-info">
+              <span className="app-name">{app.name}</span>
+              <span className="app-version">Phiên bản {app.version}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </aside>
       <main className="main-content">
         {/* ======== Thông tin sản phẩm ======== */}
         <div className="product-info-container">
