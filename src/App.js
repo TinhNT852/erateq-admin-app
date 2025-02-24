@@ -13,6 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<DashBoard />}>
+          <Route index element={<Navigate to ="/home" replace/>}/>
           <Route index element ={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
 
