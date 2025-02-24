@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import CustomIcon from "../../assets/icons/Custom.png";
 import DeleteIcon from "../../assets/icons/Delete.png";
+import FolderIcon from "../../assets/icons/Folder.png";
 import GreenAddIcon from "../../assets/icons/GreenAdd.png";
+import MoreIcon from "../../assets/icons/More.png";
 import RedDeleteIcon from "../../assets/icons/RedDelete.png";
 import SaveIcon from "../../assets/icons/Save.png";
-
-import CheckIcon from "../../assets/icons/Check.png";
-import MoreIcon from "../../assets/icons/More.png";
+import SearchIcon from "../../assets/icons/Search.png";
+import AddIcon from "../../assets/icons/WhiteAdd.png";
+/* Thêm icon nếu bạn muốn nút đóng, tạm ngưng, chỉnh sửa trong panel chi tiết */
+import EditIcon from "../../assets/icons/Edit.png";
+import PauseIcon from "../../assets/icons/Pause.png";
 
 import "./ProductStyles.css";
 
@@ -18,29 +22,58 @@ const ProductPage = () => {
   const [shortName, setShortName] = useState("");
   const [productNote, setProductNote] = useState("");
 
-  // ========== State cho danh sách phiên bản (bảng) ==========
+  // ========== Danh sách ứng dụng (bên sidebar) ==========
+  const apps = [
+    { name: "ERA ACC", version: "1.0.2" },
+    { name: "ERA FIX ASSETS", version: "1.0.2" },
+    { name: "ERA PMS", version: "1.0.2" },
+    { name: "ERA F&B", version: "1.5.1" },
+    { name: "ERA IPTV", version: "1.0.0" },
+    { name: "ERA CRM", version: "1.0.0" },
+    { name: "ERA SYSTEM", version: "1.0.0" },
+    { name: "ERA INVENTORY", version: "1.0.0" },
+    { name: "ERA PURCHASING", version: "1.1.0" },
+  ];
+
+  // ========== Danh sách phiên bản (bảng) ==========
+  // Thêm một số trường để hiển thị trong panel chi tiết
   const [tableData, setTableData] = useState([
     {
       id: 1,
-      name: "Bold text column",
-      version: "Regular text column",
-      date: "12/01/2025",
-      user: "Nguyễn Mạnh Hùng",
-      changeNote: "Regular text column",
+      name: "acc-ver1.0.2.rar",
+      version: "1.0.2",
+      date: "10/2024",
+      user: "Đào Xuân Hòa",
+      changeNote: "Bổ sung tính năng X",
       checked: true,
+      size: "10.09 Mb",
     },
     {
       id: 2,
-      name: "Bold text column",
-      version: "Regular text column",
-      date: "15/01/2025",
+      name: "fnb-ver2.0.rar",
+      version: "2.0",
+      date: "09/2024",
       user: "Nguyễn Mạnh Hùng",
       changeNote: "Regular text column",
       checked: false,
+      size: "8.5 Mb",
     },
   ]);
-  
-  // ========== Hàm xử lý khi người dùng click checkbox từng dòng ==========
+
+  // ========== State lưu phiên bản được chọn để hiển thị chi tiết ==========
+  const [selectedVersion, setSelectedVersion] = useState(null);
+
+  // Khi nhấn vào row => lưu thông tin row vào selectedVersion
+  const handleRowClick = (row) => {
+    setSelectedVersion(row);
+  };
+
+  // Đóng panel chi tiết
+  const handleCloseDetail = () => {
+    setSelectedVersion(null);
+  };
+
+  // ========== Hàm xử lý checkbox từng dòng ==========
   const handleCheckboxChange = (id) => {
     setTableData((prevData) =>
       prevData.map((row) =>
@@ -57,7 +90,7 @@ const ProductPage = () => {
     );
   };
 
-  // ========== Phân trang (ví dụ 8 dòng/trang) ==========
+  // ========== Phân trang ==========
   const rowsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const totalItems = tableData.length;
@@ -67,10 +100,6 @@ const ProductPage = () => {
   const currentRows = tableData.slice(indexOfFirstRow, indexOfLastRow);
 
   const totalPages = Math.ceil(totalItems / rowsPerPage);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   // ========== Các hàm xử lý nút ==========
   const handleDeleteSoftware = () => {
@@ -86,7 +115,7 @@ const ProductPage = () => {
   };
 
   const handleCustomAction = () => {
-    alert("Custom action (logic tùy bạn)!");
+    alert("Custom action!");
   };
 
   const handleDeleteVersion = () => {
@@ -98,28 +127,36 @@ const ProductPage = () => {
 
   return (
     <div className="product-container">
-      <aside className="sidebar-product">
+      {/* ======== SIDEBAR ỨNG DỤNG ======== */}
+      <aside className="app-sidebar">
         <h2>Ứng dụng</h2>
-        <nav>
-          <ul>
-            <li>ERA ACC</li>
-            <li>ERA HR</li>
-            <li>ERA FIX ASSETS</li>
-            <li>ERA FAB</li>
-            <li>ERA FBIV</li>
-            <li>ERA FIV</li>
-            <li>ERA SYSTEM</li>
-            <li>ERA INVENTORY</li>
-            <li>ERA PURCHASING</li>
-          </ul>
-        </nav>
+        <div className="search-box">
+          <img src={SearchIcon} alt="Search" className="search-icon" />
+          <input type="text" placeholder="Tìm kiếm" />
+        </div>
+        <button className="btn-add-app">
+          <img src={AddIcon} alt="Add" className="btn-icon" />
+          Thêm ứng dụng
+        </button>
+
+        {/* Danh sách ứng dụng */}
+        <ul className="app-list">
+          {apps.map((app) => (
+            <li key={app.name}>
+              <div className="app-info">
+                <img src={FolderIcon} alt="Folder" className="folder-icon" />
+                <span className="app-name">{app.name}</span>
+              </div>
+              <span className="app-version">Phiên bản {app.version}</span>
+            </li>
+          ))}
+        </ul>
       </aside>
 
-      {/* ======== Nội dung chính ======== */}
-      <main className="main-content">
+      {/* ======== MAIN CONTENT (THÔNG TIN + DANH SÁCH) ======== */}
+      <main className="main-content-product">
         {/* ======== Thông tin sản phẩm ======== */}
         <div className="product-info-container">
-          {/* Header: Tiêu đề + nút hành động */}
           <div className="info-header">
             <h2>Thông tin sản phẩm</h2>
             <div className="info-actions">
@@ -133,8 +170,6 @@ const ProductPage = () => {
               </button>
             </div>
           </div>
-
-          {/* Dòng 1: ID SP & Phiên Bản Hiện Tại */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -159,8 +194,6 @@ const ProductPage = () => {
               />
             </div>
           </div>
-
-          {/* Dòng 2: Tên SP & Tên SP Rút Gọn */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -185,8 +218,6 @@ const ProductPage = () => {
               />
             </div>
           </div>
-
-          {/* Dòng 3: Ghi Chú Sản Phẩm (dùng textarea) */}
           <div className="form-row">
             <div className="form-group">
               <label>
@@ -237,8 +268,15 @@ const ProductPage = () => {
               </thead>
               <tbody>
                 {currentRows.map((row) => (
-                  <tr key={row.id}>
-                    <td className="checkbox-column">
+                  <tr
+                    key={row.id}
+                    onClick={() => handleRowClick(row)}
+                    style={{ cursor: "pointer" }} // Để con trỏ dạng pointer
+                  >
+                    <td
+                      className="checkbox-column"
+                      onClick={(e) => e.stopPropagation()} // Tránh click row
+                    >
                       <input
                         type="checkbox"
                         checked={row.checked}
@@ -246,18 +284,13 @@ const ProductPage = () => {
                       />
                     </td>
                     <td>
-                      {/* Nếu row.checked === true => hiển thị icon check trước tên */}
-                      {row.checked && (
-                        <img src={CheckIcon} alt="check" className="check-icon" />
-                      )}
                       <strong>{row.name}</strong>
                     </td>
                     <td>{row.version}</td>
                     <td>{row.date}</td>
                     <td>{row.user}</td>
                     <td>{row.changeNote}</td>
-                    <td>
-                      {/* Nút/bộ ba chấm, tuỳ bạn muốn hiển thị gì */}
+                    <td id="more" onClick={(e) => e.stopPropagation()}>
                       <button className="btn-more">
                         <img src={MoreIcon} alt="More" className="btn-more-icon" />
                       </button>
@@ -277,25 +310,17 @@ const ProductPage = () => {
 
           {/* Phân trang */}
           <div className="pagination">
-            <div className="page-info">
-              <span>
-                {`${indexOfFirstRow + 1} - ${Math.min(
-                  indexOfLastRow,
-                  totalItems
-                )} trong tổng số ${totalItems} mục`}
-              </span>
-            </div>
             <div className="pagination-buttons">
               <button
                 disabled={currentPage === 1}
-                onClick={() => handlePageChange(currentPage - 1)}
+                onClick={() => setCurrentPage(currentPage - 1)}
               >
                 ❮
               </button>
               {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
+                  onClick={() => setCurrentPage(index + 1)}
                   className={currentPage === index + 1 ? "active" : ""}
                 >
                   {index + 1}
@@ -303,14 +328,80 @@ const ProductPage = () => {
               ))}
               <button
                 disabled={currentPage === totalPages || totalPages === 0}
-                onClick={() => handlePageChange(currentPage + 1)}
+                onClick={() => setCurrentPage(currentPage + 1)}
               >
                 ❯
               </button>
             </div>
+            <div className="page-info-container">
+              <div className="page-info">
+                <span>
+                  {`${indexOfFirstRow + 1} - ${Math.min(
+                    indexOfLastRow,
+                    tableData.length
+                  )} trong tổng số ${tableData.length} mục`}
+                </span>
+              </div>
+              <div className="page-size">
+                <select onChange={(e) => setCurrentPage(1)}>
+                  <option value="8">8</option>
+                  <option value="16">16</option>
+                  <option value="32">32</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </main>
+
+      {/* ======== PANEL CHI TIẾT PHIÊN BẢN BÊN PHẢI ======== */}
+      {selectedVersion && (
+        <aside className="version-detail-panel">
+          <div className="detail-panel-header">
+            <h3>Chi tiết phiên bản</h3>
+            <div className="detail-panel-actions">
+              <button onClick={handleCloseDetail}>
+                {/* <img src={CloseIcon} alt="Close" /> */}
+              </button>
+              <button>
+                <img src={PauseIcon} alt="Pause" />
+              </button>
+              <button>
+                <img src={EditIcon} alt="Edit" />
+              </button>
+            </div>
+          </div>
+
+          <div className="version-detail-content">
+            <div className="detail-icon">
+              <img src={FolderIcon} alt="Folder" />
+            </div>
+            <h4>{selectedVersion.name}</h4>
+            <p className="detail-productVersion">Phiên bản {selectedVersion.version}</p>
+
+            <div className="detail-info">
+              <div>
+                <strong>Tên tệp:</strong> {selectedVersion.name}
+              </div>
+              <div>
+                <strong>Phiên bản sản phẩm:</strong> {selectedVersion.version}
+              </div>
+              <div>
+                <strong>Kích thước:</strong> {selectedVersion.size}
+              </div>
+              <div>
+                <strong>Ngày tạo:</strong> {selectedVersion.date}
+              </div>
+              <div>
+                <strong>Người tạo:</strong> {selectedVersion.user}
+              </div>
+              <div>
+                <strong>Ghi chú thay đổi:</strong> {selectedVersion.changeNote}
+              </div>
+            </div>
+          </div>
+        </aside>
+      )}
     </div>
   );
 };

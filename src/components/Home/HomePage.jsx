@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import CancelIcon from "../../assets/icons/Cancel.png";
-import CheckIcon from "../..//assets/icons/Check.png";
 import CheckBoxIcon from "../..//assets/icons/CheckBox.png";
+import CheckIcon from "../..//assets/icons/GreenCheck.png";
 import NoteIcon from "../..//assets/icons/Note.png";
 import PauseIcon from "../..//assets/icons/Pause.png";
+import CancelIcon from "../../assets/icons/Cancel.png";
+import SmallCheck from "../../assets/icons/WhiteCheck.png";
 
 import "./HomeStyles.css";
 
@@ -268,9 +269,9 @@ const HomePage = () => {
               {currentRows.map((row) => (
                 <tr key={row.id}>
                   <td className="checkbox-column">
-                    <input 
-                      type="checkbox" 
-                      checked={row.accepted} 
+                    <input
+                      type="checkbox"
+                      checked={row.accepted}
                       onChange={() => {}}
                     />
                   </td>
@@ -286,6 +287,7 @@ const HomePage = () => {
                   <td>{row.columnHeading}</td>
                   <td className="actions">
                     <button className="btn-accept" onClick={() => handleAccept(row.id)}>
+                      <img src={SmallCheck} alt="check" className="accept-icon" />
                       Chấp nhận
                     </button>
                     <button className="btn-reject" onClick={() => handleReject(row.id)}>
