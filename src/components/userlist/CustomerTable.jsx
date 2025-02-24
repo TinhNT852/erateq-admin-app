@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Table, Tag, Button } from "antd";
-import { PlusOutlined, ProfileOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { Table, Tag, Button, Menu, Dropdown } from "antd";
+import { PlusOutlined, ProfileOutlined, EllipsisOutlined, EditOutlined, CheckCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css";
 import "./CustomerTable.css";
 import ModalForm from "./form/ModalForm";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const data = [
   {
@@ -35,6 +39,25 @@ const data = [
 const CustomerTable = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleActionClick = (record) => {
+    navigate('/detail', { state: { item: record } });
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="edit" icon={<EditOutlined />} onClick={handleActionClick}>
+        Chỉnh sửa
+      </Menu.Item>
+      <Menu.Item key="approved" icon={<CheckCircleOutlined />}>
+        Giấy phép được chấp thuận
+      </Menu.Item>
+      <Menu.Item key="delete" icon={<DeleteOutlined />} danger>
+        Xóa
+      </Menu.Item>
+    </Menu>
+  );
 
   const columns = [
     {
@@ -81,7 +104,13 @@ const CustomerTable = () => {
     },
     {
       title: "Hành Động",
-      render: () => <Button><EllipsisOutlined style={{ cursor: "pointer" }} /></Button>,
+        render: (_, record) => (
+          <Dropdown overlay={menu} trigger={["click"]}>
+            <Button>
+              <EllipsisOutlined style={{ cursor: "pointer" }} />
+            </Button>
+          </Dropdown>
+        ),
     },
   ];
 
@@ -90,9 +119,9 @@ const CustomerTable = () => {
     <div className="header-add-user-h3">
         <h4>Danh sách khách hàng</h4>
         <div className="header-add-user">
-            <Button className="setting-btn"><ProfileOutlined /></Button>
+            <Button className="setting-btn" icon={<ProfileOutlined />}></Button>
             <Button type="primary" icon={<PlusOutlined />} className="add-customer-btn" onClick={() => setIsOpen(true)}>
-                Thêm khách hàng
+              Thêm khách hàng
             </Button>
             {isOpen && <ModalForm visible={isOpen} onClose={() => setIsOpen(false)} />}
             </div>
