@@ -42,22 +42,9 @@ const CustomerTable = () => {
   const navigate = useNavigate();
 
   const handleActionClick = (record) => {
-    navigate('/detail', { state: { item: record } });
+    console.log("Thông tin item được click:", record);
+    navigate('./detail', { state: { item: record }});
   };
-
-  const menu = (
-    <Menu>
-      <Menu.Item key="edit" icon={<EditOutlined />} onClick={handleActionClick}>
-        Chỉnh sửa
-      </Menu.Item>
-      <Menu.Item key="approved" icon={<CheckCircleOutlined />}>
-        Giấy phép được chấp thuận
-      </Menu.Item>
-      <Menu.Item key="delete" icon={<DeleteOutlined />} danger>
-        Xóa
-      </Menu.Item>
-    </Menu>
-  );
 
   const columns = [
     {
@@ -105,7 +92,17 @@ const CustomerTable = () => {
     {
       title: "Hành Động",
         render: (_, record) => (
-          <Dropdown overlay={menu} trigger={["click"]}>
+          <Dropdown overlay={<Menu>
+            <Menu.Item key="edit" icon={<EditOutlined />} onClick={()=> handleActionClick(record)}>
+              Chỉnh sửa
+            </Menu.Item>
+            <Menu.Item key="approved" icon={<CheckCircleOutlined />}>
+              Giấy phép được chấp thuận
+            </Menu.Item>
+            <Menu.Item key="delete" icon={<DeleteOutlined />} danger>
+              Xóa
+            </Menu.Item>
+          </Menu>} trigger={["click"]}>
             <Button>
               <EllipsisOutlined style={{ cursor: "pointer" }} />
             </Button>
@@ -128,14 +125,14 @@ const CustomerTable = () => {
         </div>
         <div className="table-user-list">
             <Table
-            className="customer-table"
-            rowSelection={{
-            selectedRowKeys,
-            onChange: setSelectedRowKeys,
-            }}
-            columns={columns}
-            dataSource={data}
-            pagination={{ pageSize: 8 }}/>
+              className="customer-table"
+              rowSelection={{
+              selectedRowKeys,
+              onChange: setSelectedRowKeys,
+              }}
+              columns={columns}
+              dataSource={data}
+              pagination={{ pageSize: 8 }}/>
         </div>
     </div>
   );
