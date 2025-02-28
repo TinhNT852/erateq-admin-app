@@ -7,6 +7,7 @@ import HomePage from "./components/home/HomePage";
 import DashBoard from "./components/navigate/DashBoard";
 import ProductsPage from "./components/product/ProductPage";
 import CustomerTable from "./components/userlist/CustomerTable";
+import ContractDetails from "./components/userlist/contract/ContractDetails";
 
 function App() {
   return (
@@ -24,8 +25,8 @@ function App() {
           </Route>
 
           <Route path="/products" element={<ProductsPage />} />
-          
           <Route path="customers" element={<CustomerTable />} />
+          <Route path="/details" element={<ContractDetails />} />
           {/* <Route path="settings" element={<SettingsPage />} />
           <Route path="notification" element={<NotificationPage />} /> */}
         </Route>

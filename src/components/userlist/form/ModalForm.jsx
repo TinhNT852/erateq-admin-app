@@ -156,7 +156,7 @@ const ModalForm = ({ visible, onClose }) => {
         </Row>
         <div className="form-actions">
           <Button onClick={onClose}>Đóng</Button>
-          <Button type="primary" htmlType="submit">Thêm phiên bản</Button>
+          <Button type="primary" htmlType="submit">Thêm khách hàng</Button>
         </div>
       </Form>
     </Modal>
