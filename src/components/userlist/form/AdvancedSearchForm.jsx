@@ -48,9 +48,9 @@ const AdvancedSearchForm = () => {
               <Button type="primary" htmlType="submit">Search</Button>
               <Button onClick={() => form.resetFields()}>Clear</Button>
               <Button type="default" onClick={() => setModalVisible(true)}>Thêm Khách Hàng</Button>
-              <a className="toggleLink" onClick={() => setExpand(!expand)}>
+              <button className="toggleLink" onClick={() => setExpand(!expand)}>
                 <DownOutlined rotate={expand ? 180 : 0} /> Collapse
-              </a>
+              </button>
             </Space>
           </div>
         </Form>

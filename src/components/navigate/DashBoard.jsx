@@ -23,8 +23,8 @@ export default function DashBoard() {
   ];
 
   const languages = [
-    { name: "English", logo: "🇺🇸" },
     { name: "Vietnamese", logo: "🇻🇳" },
+    { name: "English", logo: "🇺🇸" },
     { name: "French", logo: "🇫🇷" },
     { name: "German", logo: "🇬🇧" },
   ];

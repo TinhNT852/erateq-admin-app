@@ -45,6 +45,7 @@ const CustomerTable = () => {
     console.log("Thông tin item được click:", record);
     navigate('./detail', { state: { item: record }});
   };
+  
 
   const columns = [
     {
