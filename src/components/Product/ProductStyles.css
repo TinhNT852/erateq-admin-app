@@ -1,7 +1,6 @@
 /* ========== LAYOUT CHUNG ========== */
 .product-container {
   display: flex;
-  min-height: 100vh;
 }
 
 /* ========== SIDEBAR ========== */
@@ -56,10 +55,15 @@
   cursor: pointer;
   font-weight: 500;
   margin-bottom: 20px;
+  transition: filter 0.2s ease;
 }
 
 .btn-add-app:hover {
   filter: brightness(0.9);
+}
+
+.btn-add-app:active{
+  filter: brightness(0.8);
 }
 
 .btn-icon {
@@ -79,8 +83,7 @@
   background-color: #fff;
   border-radius: 3px;
   align-items: center;
-  padding: 2px 4px;
-  margin-bottom: 10px;
+  padding: 4px 6px;
   gap: 20px;
   transition: filter 0.2s ease;
 }
@@ -129,7 +132,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Header: Tiêu đề + nút hành động */
 .info-header {
   display: flex;
   align-items: center;
@@ -147,7 +149,6 @@
   gap: 10px;
 }
 
-/* Nút "Xóa phần mềm" và "Lưu thay đổi" có icon */
 .btn-delete,
 .btn-save {
   display: inline-flex;
@@ -228,7 +229,6 @@
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
-  margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -330,6 +330,51 @@
   text-align: center;
 }
 
+/* ========== More Menu Popover ========== */
+.menu-popover {
+  position: absolute;
+  min-width: 120px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 9999;
+  padding: 8px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+.menu-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.menu-popover hr {
+  margin: 6px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.menu-delete {
+  color: #ff7468;
+}
+
+.menu-delete:hover {
+  background-color: #ffe6e4;
+}
+
 /* ========== Pagination ========== */
 .pagination {
   display: flex;
@@ -382,30 +427,83 @@
 
 /* ========== Detail Version ========== */
 .version-detail-panel {
-  width: 300px; /* Hoặc tùy chỉnh */
   background-color: #fff;
-  border-left: 1px solid #ddd;
+  border-radius: 8px;
   padding: 20px;
-  box-sizing: border-box;
+  margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .detail-panel-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
   margin-bottom: 15px;
 }
 
-.detail-panel-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
-.detail-panel-actions button {
-  background: none;
+.header-top h2{
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.header-bottom {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0px;
+  border-top: 1px solid #E9ECEF;
+  border-bottom: 1px solid #E9ECEF;
+}
+
+.btn-action {
+  width: 36px;
+  height: 36px;
   border: none;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  margin-left: 10px;
+  transition: filter 0.2s ease;
+}
+
+.btn-action img {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-action:hover {
+  filter: brightness(0.9);
+}
+.btn-action:active {
+  filter: brightness(0.8);
+}
+
+.btn-closes {
+  background-color: #DEE2E6;
+}
+
+.btn-edit {
+  background-color: #68BC34;
+  padding: 0px 30px;
+}
+
+.btn-upload {
+  background-color: #DEE2E6;
+}
+
+.btn-download {
+  background-color: #DEE2E6;
+}
+
+.btn-size{
+  padding: 0px 30px;
 }
 
 .version-detail-content {

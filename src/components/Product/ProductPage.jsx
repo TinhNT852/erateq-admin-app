@@ -1,28 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import AddVersionForm from "./form/AddVersionForm";
+
+import CloseIcon from "../../assets/icons/ArrowLeft.png";
 import CustomIcon from "../../assets/icons/Custom.png";
 import DeleteIcon from "../../assets/icons/Delete.png";
+import DownloadIcon from "../../assets/icons/Download.png";
+import EditIcon from "../../assets/icons/Edit.png";
 import FolderIcon from "../../assets/icons/Folder.png";
 import GreenAddIcon from "../../assets/icons/GreenAdd.png";
+import InfoIcon from "../../assets/icons/Info.png";
 import MoreIcon from "../../assets/icons/More.png";
 import RedDeleteIcon from "../../assets/icons/RedDelete.png";
 import SaveIcon from "../../assets/icons/Save.png";
 import SearchIcon from "../../assets/icons/Search.png";
+import UploadIcon from "../../assets/icons/Upload.png";
 import AddIcon from "../../assets/icons/WhiteAdd.png";
-/* Thêm icon nếu bạn muốn nút đóng, tạm ngưng, chỉnh sửa trong panel chi tiết */
-import EditIcon from "../../assets/icons/Edit.png";
-import PauseIcon from "../../assets/icons/Pause.png";
 
 import "./ProductStyles.css";
 
 const ProductPage = () => {
-  // ========== State cho phần "Thông tin sản phẩm" ==========
   const [productId, setProductId] = useState("");
   const [currentVersion, setCurrentVersion] = useState("");
   const [productName, setProductName] = useState("");
   const [shortName, setShortName] = useState("");
   const [productNote, setProductNote] = useState("");
+  const [showAddVersionForm, setShowAddVersionForm] = useState(false);
 
-  // ========== Danh sách ứng dụng (bên sidebar) ==========
   const apps = [
     { name: "ERA ACC", version: "1.0.2" },
     { name: "ERA FIX ASSETS", version: "1.0.2" },
@@ -35,14 +39,12 @@ const ProductPage = () => {
     { name: "ERA PURCHASING", version: "1.1.0" },
   ];
 
-  // ========== Danh sách phiên bản (bảng) ==========
-  // Thêm một số trường để hiển thị trong panel chi tiết
   const [tableData, setTableData] = useState([
     {
       id: 1,
       name: "acc-ver1.0.2.rar",
       version: "1.0.2",
-      date: "10/2024",
+      date: "02/10/2024",
       user: "Đào Xuân Hòa",
       changeNote: "Bổ sung tính năng X",
       checked: true,
@@ -52,7 +54,7 @@ const ProductPage = () => {
       id: 2,
       name: "fnb-ver2.0.rar",
       version: "2.0",
-      date: "09/2024",
+      date: "05/09/2024",
       user: "Nguyễn Mạnh Hùng",
       changeNote: "Regular text column",
       checked: false,
@@ -60,35 +62,12 @@ const ProductPage = () => {
     },
   ]);
 
-  // ========== State lưu phiên bản được chọn để hiển thị chi tiết ==========
+//================= Menu ===================
+  const [openMenuRowId, setOpenMenuRowId] = useState(null);
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+
+//================= Detail panel ===============
   const [selectedVersion, setSelectedVersion] = useState(null);
-
-  // Khi nhấn vào row => lưu thông tin row vào selectedVersion
-  const handleRowClick = (row) => {
-    setSelectedVersion(row);
-  };
-
-  // Đóng panel chi tiết
-  const handleCloseDetail = () => {
-    setSelectedVersion(null);
-  };
-
-  // ========== Hàm xử lý checkbox từng dòng ==========
-  const handleCheckboxChange = (id) => {
-    setTableData((prevData) =>
-      prevData.map((row) =>
-        row.id === id ? { ...row, checked: !row.checked } : row
-      )
-    );
-  };
-
-  // ========== Hàm toggle tất cả checkbox ==========
-  const handleToggleAll = () => {
-    const anyChecked = tableData.some((row) => row.checked);
-    setTableData((prevData) =>
-      prevData.map((row) => ({ ...row, checked: !anyChecked }))
-    );
-  };
 
   // ========== Phân trang ==========
   const rowsPerPage = 8;
@@ -117,12 +96,68 @@ const ProductPage = () => {
   const handleCustomAction = () => {
     alert("Custom action!");
   };
-
   const handleDeleteVersion = () => {
     alert("Xóa phiên bản!");
   };
   const handleAddVersion = () => {
-    alert("Thêm phiên bản!");
+    setShowAddVersionForm(true);
+  };
+  const handleEditVersion = () => {
+    alert("Logic chỉnh sửa phiên bản");
+  };
+  const handleUploadVersion = () => {
+    alert("Logic tải lên phiên bản");
+  };
+  const handleDownloadVersion = () => {
+    alert("Logic tải xuống phiên bản!");
+  };
+
+  const handleToggleMenu = (e, rowId) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    
+    setMenuPosition({ x: rect.left, y: rect.bottom });
+    setOpenMenuRowId((prev) => (prev === rowId ? null : rowId));
+  };
+  const handleDetailMenu = (rowId) => {
+    const record = tableData.find((row) => row.id === rowId);
+    if (record) {
+      setSelectedVersion(record);
+    }
+    setOpenMenuRowId(null);
+  };
+  const handleDownloadMenu = (rowId) => {
+    alert(`Tải xuống phiên bản: ${rowId}`);
+    setOpenMenuRowId(null);
+  };
+  const handleDeleteMenu = (rowId) => {
+    alert(`Xoá phiên bản: ${rowId}`);
+    setOpenMenuRowId(null);
+  };
+
+  useEffect(() => {
+    const handleDocClick = () => setOpenMenuRowId(null);
+    document.addEventListener("click", handleDocClick);
+    return () => {
+      document.removeEventListener("click", handleDocClick);
+    };
+  }, []);
+
+  const handleCloseDetail = () => {
+    setSelectedVersion(null);
+  };
+  const handleCheckboxChange = (id) => {
+    setTableData((prevData) =>
+      prevData.map((row) =>
+        row.id === id ? { ...row, checked: !row.checked } : row
+      )
+    );
+  };
+  const handleToggleAll = () => {
+    const anyChecked = tableData.some((row) => row.checked);
+    setTableData((prevData) =>
+      prevData.map((row) => ({ ...row, checked: !anyChecked }))
+    );
   };
 
   return (
@@ -249,6 +284,10 @@ const ProductPage = () => {
                 <img src={GreenAddIcon} alt="Add" className="btn-icon" />
                 Thêm phiên bản
               </button>
+              <AddVersionForm
+                visible={showAddVersionForm}
+                onClose={() => setShowAddVersionForm(false)}
+              />
             </div>
           </div>
           <div className="table-container">
@@ -268,11 +307,7 @@ const ProductPage = () => {
               </thead>
               <tbody>
                 {currentRows.map((row) => (
-                  <tr
-                    key={row.id}
-                    onClick={() => handleRowClick(row)}
-                    style={{ cursor: "pointer" }} // Để con trỏ dạng pointer
-                  >
+                  <tr key={row.id} >
                     <td
                       className="checkbox-column"
                       onClick={(e) => e.stopPropagation()} // Tránh click row
@@ -291,9 +326,41 @@ const ProductPage = () => {
                     <td>{row.user}</td>
                     <td>{row.changeNote}</td>
                     <td id="more" onClick={(e) => e.stopPropagation()}>
-                      <button className="btn-more">
+                      <button
+                        className="btn-more"
+                        onClick={(e) => handleToggleMenu(e, row.id)}
+                      >
                         <img src={MoreIcon} alt="More" className="btn-more-icon" />
                       </button>
+                      {openMenuRowId === row.id &&
+                        createPortal(
+                          <div
+                            className="menu-popover"
+                            style={{
+                              top: menuPosition.y,
+                              left: menuPosition.x,
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div className="menu-item" onClick={() => handleDetailMenu(row.id)}>
+                              <img src={InfoIcon} alt="Detail" className="menu-icon" />
+                              Chi tiết
+                            </div>
+                            <div className="menu-item" onClick={() => handleDownloadMenu(row.id)}>
+                              <img src={DownloadIcon} alt="Download" className="menu-icon" />
+                              Tải xuống
+                            </div>
+                            <hr />
+                            <div
+                              className="menu-item menu-delete"
+                              onClick={() => handleDeleteMenu(row.id)}
+                            >
+                              <img src={RedDeleteIcon} alt="Delete" className="menu-icon" />
+                              Xoá
+                            </div>
+                          </div>,
+                          document.body
+                        )}
                     </td>
                   </tr>
                 ))}
@@ -358,20 +425,27 @@ const ProductPage = () => {
       {selectedVersion && (
         <aside className="version-detail-panel">
           <div className="detail-panel-header">
-            <h3>Chi tiết phiên bản</h3>
-            <div className="detail-panel-actions">
-              <button onClick={handleCloseDetail}>
-                {/* <img src={CloseIcon} alt="Close" /> */}
+            <div className="header-top">
+              <button className="btn-action btn-closes" onClick={handleCloseDetail}>
+                <img src={CloseIcon} alt="Close" />
               </button>
-              <button>
-                <img src={PauseIcon} alt="Pause" />
-              </button>
-              <button>
+              <h2>Chi tiết phiên bản</h2>
+            </div>
+            <div className="header-bottom">
+              <button className="btn-action btn-edit btn-size" onClick={handleEditVersion}>
                 <img src={EditIcon} alt="Edit" />
+              </button>
+              <button className="btn-action btn-upload btn-size" onClick={handleUploadVersion}>
+                <img src={UploadIcon} alt="Upload" />
+              </button>
+              <button className="btn-action btn-download btn-size" onClick={handleDownloadVersion}>
+                <img src={DownloadIcon} alt="Download" />
+              </button>
+              <button className="btn-action btn-delete btn-size" onClick={handleDeleteVersion}>
+                <img src={DeleteIcon} alt="Delete" />
               </button>
             </div>
           </div>
-
           <div className="version-detail-content">
             <div className="detail-icon">
               <img src={FolderIcon} alt="Folder" />
